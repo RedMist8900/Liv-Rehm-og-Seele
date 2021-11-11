@@ -54,9 +54,9 @@ namespace DataStorage
         {
             BilModel model = new BilModel();
             model.Mærke = (string)row["Mærke"];
-            model.Model = (string)row["Mærke"];
-            model.Begyndelsesår = (DateTime)row["Startår"];
-            model.Slutår = (DateTime)row["Slutår"];
+            model.Model = (string)row["Model"];
+            model.Begyndelsesår = (int)row["Startår"];
+            model.Slutår = (int)row["Slutår"];
             model.Pris = (decimal)row["Pris"];
             model.Forsikringssum = (decimal)row["Forsikringssum"];
             model.Id = (int)row["Id"];
@@ -74,15 +74,26 @@ namespace DataStorage
             return liste;
         }
 
+        private DataRow GetKundeRow(string id)
+        {
+            return sqlAccess.ExecuteSql("select * from Kunde where Id = " + id).Rows[0];
+        }
+
+        private DataRow GetBilmodelRow(string id)
+        {
+            return sqlAccess.ExecuteSql("select * from Bilmodel where Id = " + id).Rows[0];
+        }
+
         private Forsikring GetForsikring(DataRow row)
         {
             Forsikring forsikring = new Forsikring();
-            forsikring.KundeId = (int)row["KundeId"];
-            forsikring.BilModelId = (int)row["BilModelId"];
+            //forsikring.KundeId = (int)row["KundeId"];
+            GetKunde(GetKundeRow(row["KundeId"].ToString()));
+            GetBilModel(GetBilmodelRow(row["BilModelId"].ToString()));
             forsikring.Registreringsnummer = (string)row["Registreringsnummer"];
             forsikring.Præmie = (decimal)row["Pris"];
             forsikring.Forsikringssum = (decimal)row["Forsikringssum"];
-            forsikring.Begyndelsesår = (DateTime)row["Begyndelsesår"];
+            forsikring.Begyndelsesår = (int)row["Begyndelsesår"];
             forsikring.Betingelser = (string)row["Betingelser"];
             forsikring.Id = (int)row["Id"];
             return forsikring;

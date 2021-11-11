@@ -57,12 +57,12 @@ namespace DataStorage
 
         public void OpretBilModel(string mærke, string model, DateTime startår, DateTime slutår, decimal pris, decimal forsikring)
         {
-            sqlAccess.ExecuteSql($"insert into BilModel (Mærke, Model, Startår, Slutår, Pris, Forsikringssum) values ('{mærke}', '{model}', {startår}, {slutår}, {pris}, {forsikring})");
+            sqlAccess.ExecuteSql($"insert into BilModel (Mærke, Model, Startår, Slutår, Pris, Forsikringssum) values ('{mærke}', '{model}', {startår.Year}, {slutår.Year}, {pris}, {forsikring})");
         }
 
         public void OpdaterBilModel(BilModel bilmodel, string mærke, string model, DateTime startår, DateTime slutår, decimal pris, decimal forsikringssum)
         {
-            sqlAccess.ExecuteSql($"update BilModel set Mærke='{mærke}', Model='{model}', Startår={startår}, Slutår={slutår}, Pris={pris}, Forsikringssum={forsikringssum} where Id={bilmodel.Id}");
+            sqlAccess.ExecuteSql($"update BilModel set Mærke='{mærke}', Model='{model}', Startår={startår.Year}, Slutår={slutår.Year}, Pris={pris}, Forsikringssum={forsikringssum} where Id={bilmodel.Id}");
         }
 
         public void DeleteBilModel(BilModel model)
@@ -72,12 +72,17 @@ namespace DataStorage
 
         public void OpretForsikring(Kunde kunde, BilModel model, string regnum, decimal pris, decimal forsikringssum, string betingelser, DateTime begyndelsesår)
         {
-            sqlAccess.ExecuteSql($"insert into Forsikring (KundeId, BilModelId, Registreringsnummer, Pris, Forsikringssum, Begyndelsesår, Betingelser) values ({kunde.Id}, {model.Id}, '{regnum}', {pris}, {forsikringssum}, {begyndelsesår}, '{betingelser}')");
+            sqlAccess.ExecuteSql($"insert into Forsikring (KundeId, BilModelId, Registreringsnummer, Pris, Forsikringssum, Begyndelsesår, Betingelser) values ({kunde.Id}, {model.Id}, '{regnum}', {pris}, {forsikringssum}, {begyndelsesår.Year}, '{betingelser}')");
         }
 
         public void DeleteForsikring(Forsikring forsikring)
         {
             sqlAccess.ExecuteSql($"delete from Forsikring where Id={forsikring.Id}");
+        }
+
+        public void OpdaterForsikring(Forsikring forsikring, string regnum, DateTime startår, decimal pris, decimal forsikringssum, string betingelser)
+        {
+            sqlAccess.ExecuteSql($"update Forsikring set Registreringsnummer='{regnum}', Pris={pris}, Begyndelsesår={startår.Year}, Forsikringssum={forsikringssum}, Betingelser='{betingelser}' where Id={forsikring.Id}");
         }
     }
 }

@@ -13,17 +13,17 @@ namespace DataModels
         public decimal Præmie { get; set; }
         public decimal Forsikringssum { get; set; }
         public string Betingelser { get; set; }
-        public DateTime Begyndelsesår { get; set; }
-        public Kunde kunde { get; set; }
+        public int Begyndelsesår { get; set; }
+        public Kunde Kunde { get; set; }
         public BilModel Model { get; set; }
 
         public Forsikring()
         {
         }
 
-        public Forsikring(Kunde kunde, BilModel model, string registreringsnummer, decimal præmie, decimal forsikringssum, string betingelser, DateTime begyndelsesår)
+        public Forsikring(Kunde kunde, BilModel model, string registreringsnummer, decimal præmie, decimal forsikringssum, string betingelser, int begyndelsesår)
         {
-            this.kunde = kunde;
+            this.Kunde = kunde;
             this.Model = model;
             this.Registreringsnummer = registreringsnummer;
             this.Præmie = præmie;

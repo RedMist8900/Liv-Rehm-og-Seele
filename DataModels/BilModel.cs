@@ -9,8 +9,8 @@ namespace DataModels
         public int Id { get; set; }
         public string Mærke { get; set; }
         public string Model { get; set; }
-        public DateTime Begyndelsesår { get; set; }
-        public DateTime Slutår { get; set; }
+        public int Begyndelsesår { get; set; }
+        public int Slutår { get; set; }
         public decimal Pris { get; set; }
         public decimal Forsikringssum { get; set; }
         public string Bil { get { return Mærke + " " + Model; } }
@@ -19,7 +19,7 @@ namespace DataModels
         {
         }
 
-        public BilModel(string mærke, string model, DateTime begyndelsesår, DateTime slutår, decimal pris, decimal forsikringssum)
+        public BilModel(string mærke, string model, int begyndelsesår, int slutår, decimal pris, decimal forsikringssum)
         {
             this.Mærke = mærke;
             this.Model = model;
